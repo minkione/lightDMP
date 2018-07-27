@@ -22,8 +22,6 @@ if [ "$ptrace_scope" -eq "3" ]; then
         exit 1;
 fi
 
-sleep 2
-
 gdb=$(which gdb)
 strings=$(which strings)
 commands="commands.txt"
