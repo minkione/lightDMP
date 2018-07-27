@@ -10,8 +10,19 @@ cat << "EOF"
 | | |/ _` | '_ \| __| | | | |\/| | |_) |
 | | | (_| | | | | |_| |_| | |  | |  __/ 
 |_|_|\__, |_| |_|\__|____/|_|  |_|_|    
-     |___/                    @0rbz_                        
+     |___/                   @0rbz_        
 EOF
+
+# check ptrace_scope
+
+ptrace_scope=$(cat /proc/sys/kernel/yama/ptrace_scope)
+
+if [ "$ptrace_scope" -eq "3" ]; then
+        echo -e "\nUse of ptrace appears to be restricted due to /proc/sys/kernel/yama/ptrace_scope being set to $ptrace_scope. This won't work.";
+        exit 1;
+fi
+
+sleep 2
 
 gdb=$(which gdb)
 strings=$(which strings)
